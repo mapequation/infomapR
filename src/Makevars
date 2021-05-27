@@ -1,0 +1,2 @@
+SOURCES = $(wildcard *.cpp) $(wildcard src/*.cpp) $(wildcard src/core/*.cpp) $(wildcard src/io/*.cpp) $(wildcard src/utils/*.cpp)
+OBJECTS = $(SOURCES:%.cpp=%.o)

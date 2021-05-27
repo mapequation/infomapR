@@ -1,0 +1,7 @@
+src/*
+!src/Makevars
+Infomap
+binary
+R/infomap.R
+master.zip
+.vscode

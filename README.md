@@ -1,0 +1,3 @@
+# InfomapR
+
+Infomap R package
