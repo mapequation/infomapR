@@ -1,7 +1,9 @@
 src/*
 !src/Makevars
 Infomap
-binary
+dist
 R/infomap.R
 master.zip
 .vscode
+inst/doc
+.Rproj.user

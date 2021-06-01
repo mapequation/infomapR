@@ -1,4 +1,7 @@
-.PHONY: create get-infomap build-binary document install test-R clean
+.PHONY: all create get-infomap build-binary document install test-R clean
+
+all: build build-binary repackage
+	@true
 
 build: get-infomap Infomap/build/R/infomap.R R/infomap.R src/infomap_wrap.cpp
 	@true
@@ -24,8 +27,16 @@ src/infomap_wrap.cpp:
 	rm -rf src/Infomap
 
 build-binary:
-	mkdir -p binary
-	R --no-save -e 'library(devtools); devtools::build(pkg = ".", path = "./binary", binary = T)'
+	mkdir -p dist
+	R --no-save < build.R
+
+repackage:
+	tar -xzvf dist/infomap_1.3.0.tgz -C dist
+	cp -r man dist/infomap/
+	cd dist && tar -czvf infomap_1.3.0.tgz infomap
+
+test-binary:
+	R --no-save < test.R
 
 pre-document:
 	R --no-save -e 'library(pkgbuild); pkgbuild::compile_dll()'
