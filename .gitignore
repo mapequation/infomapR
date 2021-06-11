@@ -1,9 +1,11 @@
-src/*
-!src/Makevars
 Infomap
 dist
-R/infomap.R
 master.zip
 .vscode
 inst/doc
 .Rproj.user
+.Rhistory
+*.i
+*.o
+*.so
+*.tree

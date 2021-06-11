@@ -10,6 +10,25 @@
 #' @include infomap.R
 NULL
 
+# TODO: define Infomap class with idiomatic R
+# accessor methods for infomap::InfomapWrapper
+# readInputData
+# addNode
+# addName
+# getName
+# getNames
+# addPhysicalNode
+# addStateNode
+# addLink
+# addMultilayerLink
+# setBipartiteStartId
+# getModules
+# getMultilevelModules
+# run
+# codelength
+# iterTree
+# iterLeafNodes
+
 
 #' @export
 test_r <- function() {
@@ -23,7 +42,11 @@ test_r <- function() {
 test_example <- function(flags="") {
   print("Test Infomap example..")
 
+  # im <- infomap::Infomap(twolevel = T, directed = T, ... = "--markov-time 0.9")
+
   im <- infomap::InfomapWrapper("-2 -d")
+
+  im$readInputData("./network.net")
 
   im$addLink(0, 1);
   im$addLink(0, 2);
@@ -41,4 +64,17 @@ test_example <- function(flags="") {
   im$addLink(5, 3);
 
   im$run();
+
+  cat("Partitioned network in", im$numTopModules(), "modules with codelength", im$codelength(), "bits:\n")
+
+  it <- im$iterLeafNodes()
+
+  while (!it$isEnd()) {
+    cat("Node:", it$stateId, "module:", it$moduleId(), '\n')
+    it$stepForward()
+  }
+
+
+  modules <- im$getModules()
+
 }

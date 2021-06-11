@@ -1,8 +1,9 @@
-install.packages("https://github.com/mapequation/infomapR/releases/download/v1.3.0/infomap_1.3.0.tgz");
+# install.packages("https://github.com/mapequation/infomapR/releases/download/v1.3.0/infomap_1.3.0.tgz");
+install.packages("./dist/infomap_1.3.0.tgz");
 
 print("Test Infomap example..")
 
-im <- infomap::InfomapWrapper("-2 -d")
+im <- infomap::InfomapWrapper("-d -o tree --out-name test .")
 
 im$addLink(0, 1);
 im$addLink(0, 2);
@@ -20,3 +21,19 @@ im$addLink(5, 4);
 im$addLink(5, 3);
 
 im$run();
+
+cat("Codelength:", im$codelength(), "\n")
+cat("Get codelength:", im$getCodelength(), "\n")
+cat("Module codelength:", im$getModuleCodelength(), "\n")
+
+cat("Partitioned network in", im$numTopModules(), "modules with codelength", im$codelength(), "bits:\n")
+
+it <- im$iterLeafNodes()
+
+while (!it$isEnd()) {
+  cat("Node:", it$stateId, "module:", it$moduleId(), '\n')
+  it$stepForward()
+}
+
+
+modules <- im$getModules()

@@ -1,6 +1,6 @@
 .PHONY: all create get-infomap build-binary document install test-R clean
 
-all: build build-binary repackage
+all: build-binary
 	@true
 
 build: get-infomap Infomap/build/R/infomap.R R/infomap.R src/infomap_wrap.cpp
@@ -57,6 +57,9 @@ test-R:
 	pwd
 	cd $(R_PACKAGE) && R --no-save -e 'library(devtools); library(roxygen2); load_all(); test()'
 
+clean-binary:
+	$(RM) -r dist Infomap/build src/*.* src/src
+
 clean:
-	$(RM) -r build Infomap master.zip binary src/*.* src/src
+	$(RM) -r build Infomap master.zip dist src/*.* src/src
 	
